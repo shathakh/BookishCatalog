@@ -6,7 +6,7 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 const app = express();
-app.set("port", 3500);
+app.set("port", process.env.PORT || 3500);
 app.use([
   express.json(),
   cookieParser(),
