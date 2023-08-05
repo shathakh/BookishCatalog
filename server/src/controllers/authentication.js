@@ -1,66 +1,66 @@
-const { compare, hash  } = require("bcrypt");
-const { User } = require("../models");
-const { loginValidation, signupValidation } = require("../validation");
-const { serverErrs } = require("../helpers/customError");
-const generateToken = require("../helpers/jwt");
+// const { compare, hash  } = require("bcrypt");
+// const { User } = require("../models");
+// const { loginValidation, signupValidation } = require("../validation");
+// const { serverErrs } = require("../helpers/customError");
+// const generateToken = require("../helpers/jwt");
 
-const signup = async (req, res) => {
-    const { firstName, lastName, email, password } = req.body;
-    await signupValidation.validate({ firstName, lastName, email, password });
+// const signup = async (req, res) => {
+//     const { firstName, lastName, email, password } = req.body;
+//     await signupValidation.validate({ firstName, lastName, email, password });
   
-    const user = await User.findOne({
-      where: { email },
-    });
+//     const user = await User.findOne({
+//       where: { email },
+//     });
   
-    if (user) throw serverErrs.BAD_REQUEST("email is already used");
-    const hashedPassword = await hash(password, 12);
+//     if (user) throw serverErrs.BAD_REQUEST("email is already used");
+//     const hashedPassword = await hash(password, 12);
   
-    const newUser = await User.create(
-      {
-        firstName, lastName, email, password: hashedPassword,
-      },
-      {
-        returning: true,
-      },
-    );
+//     const newUser = await User.create(
+//       {
+//         firstName, lastName, email, password: hashedPassword,
+//       },
+//       {
+//         returning: true,
+//       },
+//     );
   
-    const userData = {
-      id: newUser.id,
-      firstName: newUser.firstName,
-      lastName: newUser.lastName,
-      email: newUser.email,
-    };
+//     const userData = {
+//       id: newUser.id,
+//       firstName: newUser.firstName,
+//       lastName: newUser.lastName,
+//       email: newUser.email,
+//     };
   
-    const token = await generateToken(userData);
-    res.cookie("token", token);
+//     const token = await generateToken(userData);
+//     res.cookie("token", token);
   
-    return { status: 201, data: userData, msg: "signed up successfully " };
-  };
+//     return { status: 201, data: userData, msg: "signed up successfully " };
+//   };
 
-const login = async(req,res) => {
-const {email, password} = req.body;
-await loginValidation.validate({ email, password });
+// const login = async(req,res) => {
+// const {email, password} = req.body;
+// await loginValidation.validate({ email, password });
 
-const user = await User.findOne({ where: { email } });
-  if (!user) throw serverErrs.BAD_REQUEST('Wrong Email Or Password');
-  const result = await compare(password, user.password);
-  if (!result) throw serverErrs.BAD_REQUEST('Wrong Email Or Password');
+// const user = await User.findOne({ where: { email } });
+//   if (!user) throw serverErrs.BAD_REQUEST('Wrong Email Or Password');
+//   const result = await compare(password, user.password);
+//   if (!result) throw serverErrs.BAD_REQUEST('Wrong Email Or Password');
 
-  const userData = {
-    id: user.id,
-    firstName: user.firstName,
-    lastName: user.lastName,
-    email: user.email,
-  };
-  const token = await generateToken(userData);
-  res.cookie('token', token);
-  return { status: 200, msg: 'logged in successfully', data: userData };
+//   const userData = {
+//     id: user.id,
+//     firstName: user.firstName,
+//     lastName: user.lastName,
+//     email: user.email,
+//   };
+//   const token = await generateToken(userData);
+//   res.cookie('token', token);
+//   return { status: 200, msg: 'logged in successfully', data: userData };
 
-}
+// }
 
-const logout = async (req, res) => {
-    res.clearCookie('token');
-    return { status: 200, msg: 'Logged Out' };
-  };
+// const logout = async (req, res) => {
+//     res.clearCookie('token');
+//     return { status: 200, msg: 'Logged Out' };
+//   };
 
-module.exports = {login, signup, logout}
+// module.exports = {login, signup, logout}
