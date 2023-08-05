@@ -1,25 +1,25 @@
 <template>
 <div class="container">
-<h3 class="display-1 indigo--text ">Welcome to Book Catalog</h3>
-    <form @submit.prevent="submitForm">
-        <div class="form-group">
+    <h3 class="display-1 indigo--text">Welcome to Book Catalog</h3>
+    <form @submit.prevent="submitForm" class="pt-5">
+        <div class="form-group mb-5">
             <v-text-field label="Email" hide-details="auto" v-model="email"></v-text-field>
             <div v-if="!$v.email.required && $v.email.$dirty" class="red--text text--accent-4">The email field is required.</div>
             <div v-if="!$v.email.email && $v.email.$dirty" class="red--text text--accent-4">The email is not valid.</div>
         </div>
-        <div class="form-group">
+        <div class="form-group mb-5">
             <v-text-field label="Password" type="password" v-model="password"></v-text-field>
             <div v-if="!$v.password.required && $v.password.$dirty" class="red--text text--accent-4">The password field is required.</div>
             <div v-if="(!$v.password.minLength || !$v.password.maxLength) && $v.password.$dirty" class="red--text text--accent-4">You must have at least {{ $v.password.$params.minLength.min }} letters.</div>
         </div>
-        <div class="redirect-signup">
+        <div class="pt-5">
             <p>Don't have an account <router-link to="/signup"> Sign up</router-link>
             </p>
         </div>
         <v-btn class="indigo white--text" type="submit">
             Login
         </v-btn>
-        <div class="danger-alert" v-html="error" />
+        <div class="red--text text--accent-4 mt-4 title">{{error}}</div>
     </form>
 </div>
 </template>
@@ -37,7 +37,7 @@ export default {
         return {
             email: "",
             password: "",
-            error: null
+            error: ""
         };
     },
     validations: {
@@ -78,17 +78,7 @@ export default {
 .container {
     width: 50%;
 }
-form{
-padding-top: 50px;
+h3 {
+    margin-top: 100px;
 }
-.form-group{
-margin-bottom: 30px;
-}
-.redirect-signup{
-padding-top: 30px;
-}
-h3{
-margin-top: 100px;
-}
-
 </style>

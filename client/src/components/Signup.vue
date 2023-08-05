@@ -1,34 +1,33 @@
 <template>
 <div class="container">
 <h3 class="display-1 indigo--text ">Welcome to Book Catalog</h3>
-    <form @submit.prevent="submitForm">
-        <div class="form-group">
-            <v-text-field label="firstName" hide-details="auto" v-model="firstName" type="text"></v-text-field>
+    <form @submit.prevent="submitForm" class="pt-5">
+        <div class="form-group mb-4">
+            <v-text-field label="First Name" hide-details="auto" v-model="firstName" type="text"></v-text-field>
             <div v-if="!$v.firstName.required && $v.firstName.$dirty" class="red--text text--accent-4">The first name field is required.</div>
         </div>
-        <div class="form-group">
-            <v-text-field label="lastName" hide-details="auto" v-model="lastName" type="text"></v-text-field>
+        <div class="form-group mb-4">
+            <v-text-field label="Last Name" hide-details="auto" v-model="lastName" type="text"></v-text-field>
             <div v-if="!$v.lastName.required && $v.lastName.$dirty" class="red--text text--accent-4">The last name field is required.</div>
         </div>
-        <div class="form-group">
+        <div class="form-group mb-4">
             <v-text-field label="Email" hide-details="auto" v-model="email"></v-text-field>
             <div v-if="!$v.email.required && $v.email.$dirty" class="red--text text--accent-4">The email field is required.</div>
             <div v-if="!$v.email.email && $v.email.$dirty" class="red--text text--accent-4">The email is not valid.</div>
         </div>
-        <div class="form-group">
+        <div class="form-group mb-4">
             <v-text-field label="Password" type="password" v-model="password"></v-text-field>
             <div v-if="!$v.password.required && $v.password.$dirty" class="red--text text--accent-4">The password field is required.</div>
             <div v-if="(!$v.password.minLength || !$v.password.maxLength) && $v.password.$dirty" class="red--text text--accent-4">You must have at least {{ $v.password.$params.minLength.min }} letters.</div>
         </div>
-        <div class="redirect-login">
+        <div class="pt-3">
             <p>Already have an account <router-link to="/login">Login</router-link>
             </p>
         </div>
         <v-btn class="indigo white--text" type="submit">
             Sign up
-        </v-btn>
-        
-        <div class="danger-alert" v-html="error" />
+        </v-btn>  
+        <div class="red--text text--accent-4 mt-4 title">{{error}}</div>
     </form>
 </div>
 </template>
@@ -48,7 +47,7 @@ export default {
             lastName: "",
             email: "",
             password: "",
-            error: null
+            error: ""
         };
     },
     validations: {
@@ -96,15 +95,6 @@ export default {
 <style scoped>
 .container {
     width: 50%;
-}
-form{
-padding-top: 50px;
-}
-.form-group{
-margin-bottom: 30px;
-}
-.redirect-login{
-padding-top: 30px;
 }
 h3{
 margin-top: 100px;
