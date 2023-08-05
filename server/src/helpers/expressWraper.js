@@ -2,7 +2,7 @@ const { ValidationError } = require("yup");
 const { CustomError } = require("./customError");
 const ExpressWrapper = (fn) => async (req, res, next) => {
   try {
-    const { status, data = null, msg = null } = await fn(req, res, next);
+    const { status, data, msg } = await fn(req, res, next);
     res.status(status).json({ msg, data });
   } catch (error) {
     if (error instanceof ValidationError) {

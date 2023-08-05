@@ -1,9 +1,9 @@
-const { StatusCodes } = reauire("http-status-codes");
+const { StatusCodes } = require("http-status-codes");
 
 class CustomError extends Error {
   status;
   message;
-  
+
   constructor(status, message) {
     super(message);
     this.status = status;

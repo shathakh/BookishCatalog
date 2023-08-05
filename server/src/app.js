@@ -7,6 +7,7 @@ const login = require('./controllers/login');
 const cors = require('cors');
 const signup = require("./controllers/signup");
 const { clientError, serverError } = require("./middlewares/error");
+const ExpressWrapper = require("./helpers/expressWraper");
 
 dotenv.config();
 const app = express();
@@ -25,7 +26,7 @@ if (process.env.NODE_ENV === "development") {
 }
 
 app.post('/login', login)
-app.post('/signup', signup)
+app.post('/signup', ExpressWrapper(signup))
 
 app.use(clientError);
 app.use(serverError);
