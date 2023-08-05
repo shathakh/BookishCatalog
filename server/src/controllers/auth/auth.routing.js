@@ -1,24 +1,24 @@
 const ExpressWrapper = require("../../helpers/expressWraper");
-const {login, signup, logout} = require("./auth-post.action")
+const logout = require("./auth-get.action");
+const { login, signup } = require("./auth-post.action");
 
 module.exports = {
-    '/login': {
-        post: {
-            action: ExpressWrapper(login),
-            level: 'public'
-        },
+  "/login": {
+    post: {
+      action: ExpressWrapper(login),
+      level: "public",
     },
-    '/signup': {
-        post: {
-            action: ExpressWrapper(signup),
-            level: 'public'
-        },
+  },
+  "/signup": {
+    post: {
+      action: ExpressWrapper(signup),
+      level: "public",
     },
-    '/logout': {
-        get: {
-            action: ExpressWrapper(logout),
-            level: 'public'
-        },
+  },
+  "/logout": {
+    get: {
+      action: ExpressWrapper(logout),
+      level: "public",
     },
-    
+  },
 };
