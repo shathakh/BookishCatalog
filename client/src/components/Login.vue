@@ -1,21 +1,23 @@
 <template>
 <div class="container">
+<h3 class="display-1 indigo--text ">Welcome to Book Catalog</h3>
     <form @submit.prevent="submitForm">
         <div class="form-group">
-            <v-text-field label="Email" hide-details="auto" v-model="email" type="email"></v-text-field>
-            <div v-if="!$v.email.required && $v.email.$dirty" class="invalid-feedback">The email field is required.</div>
-            <div v-if="!$v.email.email && $v.email.$dirty" class="invalid-feedback">The email is not valid.</div>
+            <v-text-field label="Email" hide-details="auto" v-model="email"></v-text-field>
+            <div v-if="!$v.email.required && $v.email.$dirty" class="red--text text--accent-4">The email field is required.</div>
+            <div v-if="!$v.email.email && $v.email.$dirty" class="red--text text--accent-4">The email is not valid.</div>
         </div>
         <div class="form-group">
             <v-text-field label="Password" type="password" v-model="password"></v-text-field>
-            <div v-if="!$v.password.required && $v.password.$dirty" class="invalid-feedback">The password field is required.</div>
-            <div v-if="(!$v.password.minLength || !$v.password.maxLength) && $v.password.$dirty" class="invalid-feedback">You must have at least {{ $v.password.$params.minLength.min }} letters.</div>
+            <div v-if="!$v.password.required && $v.password.$dirty" class="red--text text--accent-4">The password field is required.</div>
+            <div v-if="(!$v.password.minLength || !$v.password.maxLength) && $v.password.$dirty" class="red--text text--accent-4">You must have at least {{ $v.password.$params.minLength.min }} letters.</div>
         </div>
-        <div>
-        <p>Don't have an account <router-link to="/signup"> Sign up</router-link></p>
+        <div class="redirect-signup">
+            <p>Don't have an account <router-link to="/signup"> Sign up</router-link>
+            </p>
         </div>
-        <v-btn dark class="cyan" type="submit">
-            Register
+        <v-btn class="indigo white--text" type="submit">
+            Login
         </v-btn>
         <div class="danger-alert" v-html="error" />
     </form>
@@ -76,4 +78,17 @@ export default {
 .container {
     width: 50%;
 }
+form{
+padding-top: 50px;
+}
+.form-group{
+margin-bottom: 30px;
+}
+.redirect-signup{
+padding-top: 30px;
+}
+h3{
+margin-top: 100px;
+}
+
 </style>

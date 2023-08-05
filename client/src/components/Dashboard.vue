@@ -1,18 +1,13 @@
 <template>
-  <div>
-dashboard
-  </div>
+  <navbar></navbar>
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-    }
+import Nav from './Nav'
+
+export default{
+  components:{
+  "navbar" : Nav
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-</style>
