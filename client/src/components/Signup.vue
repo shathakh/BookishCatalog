@@ -21,7 +21,7 @@
             <div v-if="(!$v.password.minLength || !$v.password.maxLength) && $v.password.$dirty" class="red--text text--accent-4">You must have at least {{ $v.password.$params.minLength.min }} letters.</div>
         </div>
         <div class="pt-3">
-            <p>Already have an account <router-link to="/login">Login</router-link>
+            <p>Already have a user <router-link to="/login">Login</router-link>
             </p>
         </div>
         <v-btn class="indigo white--text" type="submit">
