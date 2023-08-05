@@ -1,5 +1,5 @@
 const signup = async(req,res) => {
-    res.send(req.body)
-    }
+    res.status(400).send("faildddddd to signup")
+}
     
     module.exports = signup

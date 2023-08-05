@@ -6,7 +6,8 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production node ./dist/index.js",
     "test": "cross-env NODE_ENV=test jest -- index.test.ts",
-    "dev": "cross-env NODE_ENV=development nodemon src/index.js"
+    "dev": "cross-env NODE_ENV=development nodemon src/index.js",
+    "db:seed": "cross-env SEED=true NODE_ENV=development node src/db/config/build.js"
   },
   "keywords": [],
   "author": "",
