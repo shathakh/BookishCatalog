@@ -3,11 +3,10 @@ const cookieParser = require("cookie-parser");
 const compression = require("compression");
 const morgan = require("morgan");
 const dotenv = require("dotenv");
-const login = require('./controllers/login');
 const cors = require('cors');
-const signup = require("./controllers/signup");
 const { clientError, serverError } = require("./middlewares/error");
 const ExpressWrapper = require("./helpers/expressWraper");
+const { login, signup } = require("./controllers/authentication");
 
 dotenv.config();
 const app = express();
@@ -25,7 +24,7 @@ if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
-app.post('/login', login)
+app.post('/login',ExpressWrapper(login))
 app.post('/signup', ExpressWrapper(signup))
 
 app.use(clientError);
