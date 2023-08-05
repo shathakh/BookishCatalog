@@ -1,0 +1,9 @@
+CREATE DATABASE book_catalog;
+
+BEGIN;
+
+CREATE USER visitor WITH SUPERUSER PASSWORD '123456';
+
+ALTER DATABASE book_catalog OWNER TO visitor;
+
+COMMIT;
