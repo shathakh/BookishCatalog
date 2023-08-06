@@ -2,7 +2,7 @@ const { compare, hash } = require("bcrypt");
 const { User } = require("../../models");
 const { loginValidation, signupValidation } = require("../../validation");
 const { serverErrs } = require("../../helpers/customError");
-const generateToken = require("../../helpers/jwt");
+const generateToken = require("../../helpers/generateToken");
 
 const signup = async (req, res) => {
   console.log(req.body, "reqqqq");
@@ -58,6 +58,7 @@ const login = async (req, res) => {
   };
   const token = await generateToken(userData);
   res.cookie("token", token);
+  console.log(token, 'tokennnn');
   return { status: 200, msg: "logged in successfully", data: userData };
 };
 
