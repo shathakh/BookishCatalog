@@ -1,6 +1,6 @@
 <template>
 <div class="container">
-<h3 class="display-1 indigo--text ">Welcome to Book Catalog</h3>
+    <h3 class="display-1 indigo--text ">Welcome to Book Catalog</h3>
     <form @submit.prevent="submitForm" class="pt-5">
         <div class="form-group mb-4">
             <v-text-field label="First Name" hide-details="auto" v-model="firstName" type="text"></v-text-field>
@@ -26,7 +26,7 @@
         </div>
         <v-btn class="indigo white--text" type="submit">
             Sign up
-        </v-btn>  
+        </v-btn>
         <div class="red--text text--accent-4 mt-4 title">{{error}}</div>
     </form>
 </div>
@@ -34,7 +34,7 @@
 
 <script>
 import api from "../helpers/api";
-import { 
+import {
     required,
     email,
     minLength,
@@ -73,17 +73,18 @@ export default {
             if (this.$v.$pendding || this.$v.$error) return;
             if (!this.$v.$error) {
                 try {
-                    const response = await api.post("/signup", {
+                    const response = await api.post("/auth/signup", {
                         firstName: this.firstName,
                         lastName: this.lastName,
                         email: this.email,
                         password: this.password
                     });
                     console.log(response);
+                    this.$cookies.set('token', response.data.data.token);
+
                     this.$router.push("/dashboard");
                 } catch (error) {
-                    this.error = error.response.data;
-                    console.log(error.response.data);
+                    this.error = error.response.data.message;
                 }
             }
         }
@@ -96,7 +97,8 @@ export default {
 .container {
     width: 50%;
 }
-h3{
-margin-top: 100px;
+
+h3 {
+    margin-top: 100px;
 }
 </style>

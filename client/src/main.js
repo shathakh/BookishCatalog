@@ -7,11 +7,13 @@ import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import '@mdi/font/css/materialdesignicons.css'
 import Vuelidate from 'vuelidate'
+import VueCookies from 'vue-cookies';
 
 Vue.config.productionTip = false
 
 Vue.use(Vuetify)
 Vue.use(Vuelidate)
+Vue.use(VueCookies);
 
 /* eslint-disable no-new */
 new Vue({

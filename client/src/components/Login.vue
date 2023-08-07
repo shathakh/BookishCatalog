@@ -57,19 +57,29 @@ export default {
             if (this.$v.$pendding || this.$v.$error) return;
             if (!this.$v.$error) {
                 try {
-                    const response = await api.post("/login", {
+                    const response = await api.post("/auth/login", {
                         email: this.email,
                         password: this.password
                     });
-                    console.log(response);
+                    console.log(response.data.data.token);
+                    this.$cookies.set('token', response.data.data.token);
                     this.$router.push("/dashboard");
+
                 } catch (error) {
                     this.error = error.response.data;
                     console.log(error.response.data);
                 }
             }
-        }
+        },
+        async protectRoute() {
+            if (this.$cookies.get('token')) {
+                this.$router.push("/dashboard");
 
+            }
+        }
+    },
+    mounted() {
+    this.protectRoute();
     }
 };
 </script>
@@ -78,6 +88,7 @@ export default {
 .container {
     width: 50%;
 }
+
 h3 {
     margin-top: 100px;
 }

@@ -1,14 +1,18 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
 import Login from '../components/Login.vue'
 import Signup from '@/components/Signup'
 import Dashboard from '@/components/Dashboard'
+
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
+    {
+      path: '/',
+      redirect: '/login',
+    },
     {
       path: '/login',
       name: 'login',
@@ -22,7 +26,7 @@ export default new Router({
     {
       path: '/dashboard',
       name: 'dashboard',
-      component: Dashboard
+      component: Dashboard,
     }
   ],
   mode: 'history'
