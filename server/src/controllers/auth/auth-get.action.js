@@ -1,6 +1,6 @@
-const logout = async (req, res) => {
-  res.clearCookie("token");
-  return { status: 200, msg: "Logged Out" };
+const user = async (req, res) => {
+  const user = req.user;
+  return { status: 200, msg: "User Data", data: user };
 };
 
-module.exports = logout;
+module.exports = user;

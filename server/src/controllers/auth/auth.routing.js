@@ -1,5 +1,6 @@
 const ExpressWrapper = require("../../helpers/expressWraper");
-const logout = require("./auth-get.action");
+const authenticate = require("../../middlewares/authenticate");
+const user = require("./auth-get.action");
 const { login, signup } = require("./auth-post.action");
 
 module.exports = {
@@ -15,9 +16,10 @@ module.exports = {
       level: "public",
     },
   },
-  "/logout": {
+  "/user": {
     get: {
-      action: ExpressWrapper(logout),
+      middlewares: authenticate,
+      action: ExpressWrapper(user),
       level: "public",
     },
   },

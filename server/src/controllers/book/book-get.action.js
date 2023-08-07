@@ -5,10 +5,12 @@ const { Op } = require("sequelize");
 const getBooks = async (req) => {
   const { id } = req.params;
   await queryBookValidation.validate(req.params);
+  console.log("heelo from back");
   const books = await Book.findAll({
     where: {
       userId: id,
     },
+    order: [['createdAt', 'DESC']],
   });
   console.log(books, "bokkkkk");
   if (books.length == 0){
@@ -19,7 +21,7 @@ const getBooks = async (req) => {
 
 const searchBooks = async (req) => {
     const JOBS_PER_PAGE = 10;
-    const { author, title } = req.query;
+    const { searchText } = req.query;
     await searchBookValidation.validate(req.query);
   
     const books = await Book.findAndCountAll({
@@ -28,12 +30,12 @@ const searchBooks = async (req) => {
         [Op.or]: [
           {
             title: {
-              [Op.iLike]: `%${title}%`,
+              [Op.iLike]: `%${searchText}%`,
             },
           },
           {
             author: {
-              [Op.iLike]: `%${author}%`,
+              [Op.iLike]: `%${searchText}%`,
             },
           },
         ],

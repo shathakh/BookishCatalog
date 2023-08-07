@@ -37,6 +37,7 @@ const signup = async (req, res) => {
 
   const token = await generateToken(userData);
   res.cookie("token", token);
+  userData.token =token;
 
   return { status: 201, data: userData, msg: "signed up successfully " };
 };
@@ -59,6 +60,7 @@ const login = async (req, res) => {
   const token = await generateToken(userData);
   res.cookie("token", token);
   console.log(token, 'tokennnn');
+  userData.token =token;
   return { status: 200, msg: "logged in successfully", data: userData };
 };
 
