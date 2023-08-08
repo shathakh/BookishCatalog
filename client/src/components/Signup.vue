@@ -1,6 +1,9 @@
 <template>
 <div class="container">
-    <h3 class="display-1 indigo--text ">Welcome to Book Catalog</h3>
+    <div class="welcome">
+        <h3 class="display-1 indigo--text ">Happy to Join Book Catalog</h3>
+        <v-img width="550" class="mr-5 mb-5" src="https://i.ibb.co/HdpnbsQ/Instruction-manual-rafiki-1.png"></v-img>
+    </div>
     <form @submit.prevent="submitForm" class="pt-5">
         <div class="form-group mb-4">
             <v-text-field label="First Name" hide-details="auto" v-model="firstName" type="text"></v-text-field>
@@ -95,10 +98,23 @@ export default {
 
 <style scoped>
 .container {
-    width: 50%;
+    display: flex;
+    justify-content: space-around;
+    gap: 50px
 }
 
-h3 {
-    margin-top: 100px;
+form {
+    margin-top: 120px;
+    width: 50%
 }
+.welcome {
+    display: flex;
+    flex-direction: column;
+    margin-top: 80px
+}
+
+.welcome h3 {
+    margin-bottom: -20px
+}
+
 </style>

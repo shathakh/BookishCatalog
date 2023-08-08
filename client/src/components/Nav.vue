@@ -1,12 +1,14 @@
 <template>
-<v-toolbar dense app class="indigo white--text">
+<v-toolbar dense app class=" nav indigo white--text">
     <v-toolbar-title>Book Catalog</v-toolbar-title>
 
     <v-spacer></v-spacer>
-            <v-icon class="white--text display-2">mdi-account</v-icon>
+    <v-icon class="white--text mr-1">mdi-account</v-icon>
 
-    <p class="title pt-3 pr-3">{{user.firstName}} {{user.lastName}}</p>
-
+    <p class=" pt-3 ">{{user.firstName}} {{user.lastName}}</p>
+    <v-btn color="primary" @click="signOut">
+        Sign Out
+    </v-btn>
 </v-toolbar>
 </template>
 
@@ -15,5 +17,14 @@ export default {
     props: {
         user: {},
     },
+    methods: {
+        signOut() {
+            this.$cookies.remove('token')
+            this.$router.push("/login");
+        },
+        }
 }
 </script>
+
+<style>
+</style>

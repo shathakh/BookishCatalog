@@ -4,10 +4,12 @@
     <v-app>
         <menuList @bookAdded="getBooks" :user="user"></menuList>
         <v-content>
-            <v-text-field v-model="searchText" label="Search Book" class="search-btn"></v-text-field>
-            <div class="books" v-for="book in books" :key="book.title">
-                <bookCard @bookDeleted="getBooks" @bookEdited="getBooks" claa="card" :book="book"></bookCard>
-            </div>
+            <v-text-field v-model="searchText" label="Search Book" class="search-btn" @input="handleSearch"></v-text-field>
+            <v-row>
+        <v-col v-for="(book, index) in books" :key="book.title" :sm="4">
+          <bookCard @bookDeleted="getBooks" @bookEdited="getBooks" class="card" :book="book"></bookCard>
+        </v-col>
+      </v-row>
         </v-content>
     </v-app>
 </div>
@@ -15,9 +17,12 @@
 
 <script>
 import Nav from './Nav'
-import BookCard from './BookCard'
+import BookCard from './BookCard3'
 import MenuList from './MenuList'
 import api from "../helpers/api";
+import {
+    debounce
+} from 'lodash';
 
 export default {
     data() {
@@ -43,8 +48,8 @@ export default {
                         Authorization: `Bearer ${this.$cookies.get('token')}`
                     }
                 });
-                console.log(response);
-                this.books = response.data;
+                console.log(response.data.data.rows, 'search');
+                this.books = response.data.data.rows;
             } catch (error) {
                 this.error = error.response.data;
                 console.log(error.response.data);
@@ -83,7 +88,10 @@ export default {
                 this.$router.push("/login");
 
             }
-        }
+        },
+        handleSearch: debounce(function () {
+            this.searchBook();
+        }, 250),
     },
     mounted() {
         this.protectRoute();
@@ -95,14 +103,7 @@ export default {
 </script>
 
 <style>
-.books {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 40px;
-    margin: 0 auto;
-    margin-top: 80px;
-}
+
 
 .search-btn {
     width: 50%;

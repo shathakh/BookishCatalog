@@ -1,6 +1,9 @@
 <template>
 <div class="container">
-    <h3 class="display-1 indigo--text">Welcome to Book Catalog</h3>
+    <div class="welcome">
+        <h3 class=" display-1 indigo--text">Welcome to Book Catalog</h3>
+        <v-img width="550" class="mr-5 mb-5" src="https://i.ibb.co/CBNt8Kv/Reading-glasses-rafiki.png"></v-img>
+    </div>
     <form @submit.prevent="submitForm" class="pt-5">
         <div class="form-group mb-5">
             <v-text-field label="Email" hide-details="auto" v-model="email"></v-text-field>
@@ -79,17 +82,48 @@ export default {
         }
     },
     mounted() {
-    this.protectRoute();
+        this.protectRoute();
     }
 };
 </script>
 
 <style scoped>
 .container {
-    width: 50%;
+    display: flex;
+    justify-content: space-around;
+    gap: 40px
 }
 
-h3 {
-    margin-top: 100px;
+form {
+    margin-top: 150px;
+    width: 50%
+}
+.welcome {
+    display: flex;
+    flex-direction: column;
+    margin-top: 80px
+}
+
+.welcome h3 {
+    margin-bottom: -35px
+}
+
+@media (max-width: 900px) {
+    .container {
+        display: flex;
+        flex-direction: column;
+        gap: 0px
+    }
+
+    form {
+        margin-top: -50px;
+        width: 80%;
+        margin-left: 50px
+    }
+
+    .login-image {
+        width: 100%;
+        padding-right: 20px
+    }
 }
 </style>
