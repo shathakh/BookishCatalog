@@ -50,7 +50,7 @@ const books = [
     },
     {
         author: " Cheryl Strayed",
-        title: "Wild",
+        title: "Wild shoose",
         description: "At twenty-two, Cheryl Strayed thought she had lost everything. In the wake of her mothers death, her family scattered and her own marriage was soon destroyed. Four years later, with nothing more to lose, she made the most impulsive decision of her life. With no experience or training, driven only by blind will",
         imageLink: "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1453189881i/12262741.jpg",
         userId: 1
