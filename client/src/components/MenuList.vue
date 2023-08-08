@@ -1,30 +1,30 @@
 <template>
-<v-navigation-drawer app class="mt-5" :width="250">
-    <div class="username grey lighten-3">
+<div class="sidebar grey lighten-2 black--text" :width="250">
+    <div class="username">
         <v-icon class="indigo--text display-2">mdi-account</v-icon>
         <p class="pt-3 title">{{ user.firstName }} {{ user.lastName }}</p>
     </div>
-    <v-list class="list">
-        <v-list-item class="list-item">
-            <v-list-item-icon>
-                <v-icon>mdi-book</v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-                <v-list-item-title class="ml-3">My Profile</v-list-item-title>
-            </v-list-item-content>
-        </v-list-item>
+    <div class="list">
+        <div class="list-item">
+            <div class="list-icon">
+                <v-icon class="indigo--text">mdi-book</v-icon>
+            </div>
+            <div class="list-content ml-4">
+                My Books
+            </div>
+        </div>
         <v-row justify="center">
             <v-dialog v-model="dialog" persistent max-width="600px">
                 <template v-slot:activator="{ on, attrs }">
                     <div color="primary" dark v-bind="attrs" v-on="on">
-                        <v-list-item class="list-item mt-3">
-                            <v-list-item-icon>
-                                <v-icon>mdi-plus</v-icon>
-                            </v-list-item-icon>
-                            <v-list-item-content>
-                                <v-list-item-title class="ml-3">Add New Book</v-list-item-title>
-                            </v-list-item-content>
-                        </v-list-item>
+                        <div class="list-item mt-3">
+                            <div class="list-icon">
+                                <v-icon class="indigo--text">mdi-plus</v-icon>
+                            </div>
+                            <div class="list-content ml-4">
+                                Add New Book
+                            </div>
+                        </div>
                     </div>
                 </template>
                 <v-card>
@@ -53,16 +53,16 @@
             </v-dialog>
         </v-row>
 
-        <v-list-item class="list-item" @click="signOut">
-            <v-list-item-icon>
-                <v-icon>mdi-logout</v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-                <v-list-item-title class="ml-3">Sign Out</v-list-item-title>
-            </v-list-item-content>
-        </v-list-item>
-    </v-list>
-</v-navigation-drawer>
+        <div class="list-item" @click="signOut">
+            <div class="list-icon">
+                <v-icon class="indigo--text">mdi-logout</v-icon>
+            </div>
+            <div class="list-content ml-4">
+                Sign Out
+            </div>
+        </div>
+    </div>
+</div>
 </template>
 
 <script>
@@ -112,6 +112,18 @@ export default {
 </script>
 
 <style>
+.sidebar {
+    margin-top: 49px;
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    color: white;
+    z-index: 1;
+
+}
+
 .username {
     padding: 6px;
     display: flex;
@@ -128,10 +140,16 @@ export default {
     padding: 15px;
     display: flex;
     padding-left: 40px;
+    align-items: center;
 }
 
 .list-item:hover {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     cursor: pointer;
+}
+@media (max-width: 650px) {
+.sidebar{
+visibility: hidden;
+}
 }
 </style>

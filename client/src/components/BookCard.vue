@@ -1,25 +1,14 @@
 <template>
-<v-card class="" max-width="330" max-height="480">
-    <v-img height="270" :src="book.imageLink"></v-img>
-    <div class="mx-auto title mt-3">
-        {{book.title}}
-    </div>
-    <v-card-text>
-        <div>{{book.description}}</div>
-    </v-card-text>
-    <div class="mb-2">
-        Author: {{book.author}}
-    </div>
-    <v-divider class="mx-4"></v-divider>
-
-    <v-card-actions class=" ">
+<v-card class="" max-width="344">
+    <v-img :src="book.imageLink" height="300px"></v-img>
+    <div class="mt-1 d-flex justify-center">
+        <v-card-title class="title">
+            {{book.title}} </v-card-title>
         <v-row justify="center">
             <v-dialog v-model="dialog" persistent max-width="600px">
                 <template v-slot:activator="{ on, attrs }">
-                    <div color="primary" dark v-bind="attrs" v-on="on">
-                        <v-btn class="mt-2 mr-5 ml-5" color="green lighten-2">
-                            Edit
-                        </v-btn>
+                    <div class="ml-5" color="primary" dark v-bind="attrs" v-on="on">
+                        <v-icon class="edit-icon indigo--text mt-3 ml-5">mdi-pencil</v-icon>
                     </div>
                 </template>
                 <v-card>
@@ -49,12 +38,10 @@
         </v-row>
         <template>
             <v-row justify="center">
-                <v-btn class="mb-2" color="red lighten-2" @click.stop="dialogDelete = true">
-                    Delete
-                </v-btn>
-                <v-dialog v-model="dialogDelete" max-width="290">
+                <v-icon class="delete-icon indigo--text mt-3 mr-2 ml-2" @click.stop="dialogDelete = true">mdi-delete</v-icon>
+                <v-dialog v-model="dialogDelete" max-width="350">
                     <v-card>
-                        <v-card-title class="title ml-5 red--text lighten-1">
+                        <v-card-title class="title ml-3 red--text lighten-1">
                             Are You Sure?
                         </v-card-title>
 
@@ -70,7 +57,7 @@
                                 Cancel
                             </v-btn>
 
-                            <v-btn color="red lighten-1 mb-2 mr-5" text @click="deleteBook(book.id)">
+                            <v-btn color="red lighten-1 mb-2" text @click="deleteBook(book.id)">
                                 Delete
                             </v-btn>
                         </v-card-actions>
@@ -79,7 +66,26 @@
             </v-row>
         </template>
 
+    </div>
+    <v-card-actions>
+        <div class="ml-2"><span class="indigo--text">Author:</span> {{book.author}}</div>
+
+        <v-spacer></v-spacer>
+
+        <v-btn icon @click="show = !show">
+            <v-icon class="indigo--text" >{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+        </v-btn>
     </v-card-actions>
+
+    <v-expand-transition>
+        <div v-show="show">
+            <v-divider></v-divider>
+
+            <v-card-text>
+                {{book.description}}
+            </v-card-text>
+        </div>
+    </v-expand-transition>
 </v-card>
 </template>
 
@@ -99,6 +105,7 @@ export default {
             error: "",
             dialog: false,
             dialogDelete: false,
+            show: false,
 
         };
     },
@@ -126,6 +133,7 @@ export default {
             }
         },
         async editBook(bookId) {
+            console.log(bookId, 'bok id')
             try {
                 const response = await api.put(`/book/${bookId}`, {
                     title: this.title,
@@ -148,3 +156,14 @@ export default {
     }
 }
 </script>
+<style>
+.edit-icon:hover {
+color: green !important;
+cursor: pointer;
+}
+
+.delete-icon:hover {
+color: red !important;
+cursor: pointer;
+}
+</style>
