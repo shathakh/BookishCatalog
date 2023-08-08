@@ -1,7 +1,7 @@
 <template>
 <div class="container">
     <div class="welcome">
-        <h3 class=" display-1 indigo--text">Welcome to Book Catalog</h3>
+        <h3 class=" display-1 indigo--text">Welcome to Bookish Catalog</h3>
         <v-img width="550" class="mr-5 mb-5" src="https://i.ibb.co/CBNt8Kv/Reading-glasses-rafiki.png"></v-img>
     </div>
     <form @submit.prevent="submitForm" class="pt-5">
