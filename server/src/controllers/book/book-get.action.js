@@ -22,6 +22,8 @@ const getBooks = async (req) => {
 const searchBooks = async (req) => {
     const JOBS_PER_PAGE = 10;
     const { searchText } = req.query;
+    const userId = req.user.id;
+    console.log(searchText, 'search Text');
     await searchBookValidation.validate(req.query);
   
     const books = await Book.findAndCountAll({
@@ -39,6 +41,7 @@ const searchBooks = async (req) => {
             },
           },
         ],
+        userId
       },
       order: [["id", "DESC"]],
       distinct: true,
