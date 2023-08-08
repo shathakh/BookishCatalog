@@ -15,7 +15,7 @@ const signup = async (req, res) => {
 
   if (user) throw serverErrs.BAD_REQUEST("email is already used");
   const hashedPassword = await hash(password, 12);
-
+console.log(hashedPassword, 'passwordddd')
   const newUser = await User.create(
     {
       firstName,

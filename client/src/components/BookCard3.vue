@@ -38,7 +38,7 @@
             </v-row>
             <template>
                 <v-row justify="center">
-                    <v-icon class="red--text mt-3" style="cursor: pointer;" @click.stop="dialogDelete = true">mdi-delete</v-icon>
+                    <v-icon class="red--text mt-3 mr-2 ml-2" style="cursor: pointer;" @click.stop="dialogDelete = true">mdi-delete</v-icon>
                     <v-dialog v-model="dialogDelete" max-width="290">
                         <v-card>
                             <v-card-title class="title ml-5 red--text lighten-1">

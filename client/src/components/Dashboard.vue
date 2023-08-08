@@ -6,10 +6,10 @@
         <v-content>
             <v-text-field v-model="searchText" label="Search Book" class="search-btn" @input="handleSearch"></v-text-field>
             <v-row>
-        <v-col v-for="(book, index) in books" :key="book.title" :sm="4">
-          <bookCard @bookDeleted="getBooks" @bookEdited="getBooks" class="card" :book="book"></bookCard>
-        </v-col>
-      </v-row>
+                <v-col v-for="(book, index) in books" :key="book.title" :sm="4">
+                    <bookCard @bookDeleted="getBooks" @bookEdited="getBooks" class="card" :book="book"></bookCard>
+                </v-col>
+            </v-row>
         </v-content>
     </v-app>
 </div>
@@ -57,7 +57,7 @@ export default {
         },
         async getBooks() {
             try {
-                const response = await api.get("/book/17", {
+                const response = await api.get(`/book/${this.user.id}`, {
                     headers: {
                         Authorization: `Bearer ${this.$cookies.get('token')}`
                     }
@@ -92,19 +92,20 @@ export default {
         handleSearch: debounce(function () {
             this.searchBook();
         }, 250),
+        async loadData() {
+            await this.getUserData();
+            await this.getBooks();
+        },
     },
     mounted() {
         this.protectRoute();
+        this.loadData();
 
-        this.getBooks();
-        this.getUserData();
     }
 }
 </script>
 
 <style>
-
-
 .search-btn {
     width: 50%;
     margin: 0 auto;

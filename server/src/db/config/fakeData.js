@@ -3,19 +3,19 @@ const users= [
         firstName : "Ahmed",
         lastName: "Ali",
         email: "ahmed@gmail.com",
-        password: "$2y$12$50bfKDzQf6qW6zd0OyPQue74lATfbaUcKCvYluWgLrktoobcq8oq." //123456
+        password: "$2b$12$og26GAuko/3UxDDyeD0d7OVYiNC2Yiooihrl4GVkN.IRbEvC2qIy2" //123456
     },
     {
         firstName : "Karam",
         lastName: "Alaa",
         email: "karam@gmail.com",
-        password: "$2y$12$50bfKDzQf6qW6zd0OyPQue74lATfbaUcKCvYluWgLrktoobcq8oq." //123456
+        password: "$2b$12$og26GAuko/3UxDDyeD0d7OVYiNC2Yiooihrl4GVkN.IRbEvC2qIy2" //123456
     },
     {
         firstName : "Amal",
         lastName: "Salem",
         email: "amal@gmail.com",
-        password: "$2y$12$50bfKDzQf6qW6zd0OyPQue74lATfbaUcKCvYluWgLrktoobcq8oq." //12345
+        password: "$2b$12$og26GAuko/3UxDDyeD0d7OVYiNC2Yiooihrl4GVkN.IRbEvC2qIy2" //12345
     },
 ]
 
@@ -81,7 +81,7 @@ const books = [
         title: "Country Driving",
         description: "From the bestselling author of Oracle Bones and River Town comes the final book in his award-winning trilogy, on the human side of the economic revolution in China. In the summer of 2001, Peter Hessler, the longtime Beijing correspondent for The New Yorker, acquired his Chinese driver's license.",
         imageLink: "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1564999953i/6945572.jpg",
-        userId: 2
+        userId: 1
     },
     {
         author: " Linda Leaming ",
@@ -95,14 +95,14 @@ const books = [
         title: "Turn Left At The Trojan Horse",
         description: "Turn Left at the Trojan Horse has been described as On the Road meets Eat, Pray, Love because it goes well beyond a road trip. More than just a funny and profound narrative of Brad Herzog's cross-country trek toward a college reunion in Ithaca (New York) and more than another reimagining of Odysseus's ancient journey",
         imageLink: "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1347659621i/7798030.jpg",
-        userId: 2
+        userId: 1
     },
     {
         author: "Charles Boyce",
         title: "Dictionary of Furniture",
         description:"This work is a comprehensive listing of terms that refer to furniture - its style, manufacture and makers in all countries and cultures from earliest times to the present. It deals with details of construction, cabinet makers and aesthetic terminology." ,
         imageLink: "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1519664181i/6930542.jpg",
-        userId: 3
+        userId: 1
     },
     {
         author: "John Flanagan",

@@ -69,7 +69,7 @@ export default {
                     this.$router.push("/dashboard");
 
                 } catch (error) {
-                    this.error = error.response.data;
+                    this.error = error.response.data.message;
                     console.log(error.response.data);
                 }
             }

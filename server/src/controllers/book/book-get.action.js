@@ -1,18 +1,20 @@
+const { serverErrs } = require("../../helpers/customError");
 const { Book } = require("../../models");
 const { queryBookValidation, searchBookValidation } = require("../../validation");
 const { Op } = require("sequelize");
 
 const getBooks = async (req) => {
   const { id } = req.params;
+  console.log(req.params.id == req.user.id ,'check')
   await queryBookValidation.validate(req.params);
-  console.log("heelo from back");
+  const checkUser = req.params.id == req.user.id
+  if(!checkUser) throw serverErrs.UNAUTHORIZED("unauthorized");
   const books = await Book.findAll({
     where: {
       userId: id,
     },
     order: [['createdAt', 'DESC']],
   });
-  console.log(books, "bokkkkk");
   if (books.length == 0){
     return { status: 200, msg: "There is No Books" };
   }else 
@@ -23,7 +25,6 @@ const searchBooks = async (req) => {
     const JOBS_PER_PAGE = 10;
     const { searchText } = req.query;
     const userId = req.user.id;
-    console.log(searchText, 'search Text');
     await searchBookValidation.validate(req.query);
   
     const books = await Book.findAndCountAll({
