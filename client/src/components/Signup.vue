@@ -82,9 +82,7 @@ export default {
                         email: this.email,
                         password: this.password
                     });
-                    console.log(response);
                     this.$cookies.set('token', response.data.data.token);
-
                     this.$router.push("/dashboard");
                 } catch (error) {
                     this.error = error.response.data.message;
@@ -107,6 +105,7 @@ form {
     margin-top: 120px;
     width: 50%
 }
+
 .welcome {
     display: flex;
     flex-direction: column;
@@ -116,5 +115,4 @@ form {
 .welcome h3 {
     margin-bottom: -20px
 }
-
 </style>

@@ -26,7 +26,7 @@
                     <v-card-actions>
                         <v-spacer></v-spacer>
 
-                        <v-btn class="mb-4"" color=" indigo white--text" @click="dialog = false">
+                        <v-btn class="mb-4"" color=" grey darken-1 white--text" @click="dialog = false">
                             Close
                         </v-btn>
                         <v-btn class="ml-3 mr-4 mb-4" color="indigo white--text" @click="editBook(book.id)">
@@ -36,35 +36,7 @@
                 </v-card>
             </v-dialog>
         </v-row>
-        <template>
-            <v-row justify="center">
-                <v-icon class="delete-icon indigo--text mt-3 mr-2 ml-2" @click.stop="dialogDelete = true">mdi-delete</v-icon>
-                <v-dialog v-model="dialogDelete" max-width="350">
-                    <v-card>
-                        <v-card-title class="title ml-3 red--text lighten-1">
-                            Are You Sure?
-                        </v-card-title>
-
-                        <v-card-text>
-                            Do you really want to delete this book.
-                            This book can not be restore.
-                        </v-card-text>
-
-                        <v-card-actions>
-                            <v-spacer></v-spacer>
-
-                            <v-btn color="grey lighten-1 mb-2" text @click="dialogDelete = false">
-                                Cancel
-                            </v-btn>
-
-                            <v-btn color="red lighten-1 mb-2" text @click="deleteBook(book.id)">
-                                Delete
-                            </v-btn>
-                        </v-card-actions>
-                    </v-card>
-                </v-dialog>
-            </v-row>
-        </template>
+        <DeleteBookModal :bookId="book.id" :books="books" :dialogDelete="dialogDelete"></DeleteBookModal>
 
     </div>
     <v-card-actions>
@@ -73,7 +45,7 @@
         <v-spacer></v-spacer>
 
         <v-btn icon @click="show = !show">
-            <v-icon class="indigo--text" >{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+            <v-icon class="indigo--text">{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
         </v-btn>
     </v-card-actions>
 
@@ -91,10 +63,12 @@
 
 <script>
 import api from "../helpers/api";
+import DeleteBookModal from "./ConfirmDeleteModal"
 
 export default {
     props: {
         book: {},
+        books: []
     },
     data() {
         return {
@@ -108,6 +82,9 @@ export default {
             show: false,
 
         };
+    },
+    components: {
+        DeleteBookModal
     },
     created() {
         this.title = this.book.title;
@@ -123,17 +100,16 @@ export default {
                         Authorization: `Bearer ${this.$cookies.get('token')}`
                     }
                 });
-                console.log(response, 'deleteee');
-                this.$emit("bookDeleted");
+                const bookIndex = this.books.findIndex(book => book.id === bookId);
+                if (bookIndex !== -1) {
+                    this.books.splice(bookIndex, 1); // Remove 1 element at the bookIndex
+                }
                 this.dialogDelete = false
             } catch (error) {
-                console.log('errrror', error)
                 this.error = error.response.data;
-                console.log(error.response.data);
             }
         },
         async editBook(bookId) {
-            console.log(bookId, 'bok id')
             try {
                 const response = await api.put(`/book/${bookId}`, {
                     title: this.title,
@@ -145,25 +121,33 @@ export default {
                         Authorization: `Bearer ${this.$cookies.get('token')}`
                     }
                 });
-                console.log(response, 'res editt');
-                this.$emit("bookEdited");
+                const bookIndex = this.books.findIndex(book => book.id === bookId);
+                if (bookIndex !== -1) {
+                    this.books[bookIndex].title = this.title;
+                    this.books[bookIndex].author = this.author;
+                    this.books[bookIndex].description = this.description;
+                    this.books[bookIndex].imageLink = this.imageLink;
+                    console.log(this.books, 'books after edit')
+                } else {
+                    console.log("Book not found");
+                }
                 this.dialog = false
             } catch (error) {
                 this.error = error.response.data;
-                console.log(error.response.data);
             }
         }
     }
 }
 </script>
+
 <style>
 .edit-icon:hover {
-color: green !important;
-cursor: pointer;
+    color: green !important;
+    cursor: pointer;
 }
 
 .delete-icon:hover {
-color: red !important;
-cursor: pointer;
+    color: red !important;
+    cursor: pointer;
 }
 </style>

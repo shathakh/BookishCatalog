@@ -1,8 +1,7 @@
 <template>
 <div class="sidebar grey lighten-2 black--text" :width="250">
     <div class="username">
-        <v-icon class="indigo--text display-2">mdi-account</v-icon>
-        <p class="pt-3 title">{{ user.firstName }} {{ user.lastName }}</p>
+        <p class="pt-3 title">Welcome {{ user.firstName }} {{ user.lastName }}</p>
     </div>
     <div class="list">
         <div class="list-item">
@@ -34,15 +33,20 @@
                     <v-card-text>
                         <v-container>
                             <v-text-field label="Title" v-model="title"></v-text-field>
+                            <div v-if="!$v.title.required && $v.title.$dirty" class="red--text text--accent-4">The title field is required.</div>
                             <v-text-field label="Author" v-model="author"></v-text-field>
+                            <div v-if="!$v.author.required && $v.author.$dirty" class="red--text text--accent-4">The author field is required.</div>
                             <v-text-field label="Description" v-model="description"></v-text-field>
+                            <div v-if="!$v.description.required && $v.description.$dirty" class="red--text text--accent-4">The description field is required.</div>
                             <v-text-field label="Image Link" v-model="imageLink"></v-text-field>
+                            <div v-if="!$v.imageLink.required && $v.imageLink.$dirty" class="red--text text--accent-4">The image link field is required.</div>
+
                         </v-container>
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
 
-                        <v-btn class="mb-4"" color=" indigo white--text" @click="dialog = false">
+                        <v-btn class="mb-4"" color=" grey darken-1 white--text" @click="resetForm">
                             Close
                         </v-btn>
                         <v-btn class="ml-3 mr-4 mb-4" color="indigo white--text" @click=" addBook">
@@ -67,10 +71,14 @@
 
 <script>
 import api from "../helpers/api";
+import {
+    required,
+} from 'vuelidate/lib/validators'
 
 export default {
     props: {
         user: {},
+        books: []
     },
     data() {
         return {
@@ -82,12 +90,28 @@ export default {
             dialog: false,
         };
     },
+    validations: {
+        title: {
+            required,
+        },
+        author: {
+            required,
+        },
+        description: {
+            required,
+        },
+        imageLink: {
+            required,
+        },
+    },
     methods: {
         signOut() {
             this.$cookies.remove('token')
             this.$router.push("/login");
         },
         async addBook() {
+            this.$v.$touch();
+            if (this.$v.$pendding || this.$v.$error) return;
             try {
                 const response = await api.post("/book", {
                     title: this.title,
@@ -99,14 +123,22 @@ export default {
                         Authorization: `Bearer ${this.$cookies.get('token')}`
                     }
                 });
-                console.log(response, 'resssss');
+                const newBook = response.data.data
                 this.dialog = false
-                this.$emit("bookAdded");
+                this.books.unshift(newBook);
             } catch (error) {
                 this.error = error.response.data;
-                console.log(error, 'errror');
             }
-        }
+        },
+        resetForm() {
+            this.dialog = false
+            this.$v.$reset();
+            this.title = "";
+            this.author = "";
+            this.description = "";
+            this.imageLink = "";
+            this.error = "";
+        },
     },
 }
 </script>
@@ -122,13 +154,6 @@ export default {
     color: white;
     z-index: 1;
 
-}
-
-.username {
-    padding: 6px;
-    display: flex;
-    padding-left: 20px;
-    gap: 20px;
 }
 
 .list {
@@ -147,9 +172,10 @@ export default {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     cursor: pointer;
 }
+
 @media (max-width: 650px) {
-.sidebar{
-visibility: hidden;
-}
+    .sidebar {
+        visibility: hidden;
+    }
 }
 </style>

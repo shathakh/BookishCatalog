@@ -2,15 +2,15 @@
 <div>
     <navbar :user="user"></navbar>
     <v-app>
-        <menuList @bookAdded="getBooks" :user="user"></menuList>
+        <Sidebar :books="books" :user="user"></Sidebar>
         <v-content class="content">
             <div class="search-section">
                 <v-text-field v-model="searchText" label="Search Book" class="search-btn" @input="handleSearch"></v-text-field>
-                <addBook class="add-book-btn"></addBook>
+                <AddBook :books="books" class="add-book-btn"></AddBook> <!-- visible in mobile size -->
             </div>
             <div class="cards-container">
                 <div class="cards" v-for="book in books" :key="book.title">
-                    <bookCard @bookDeleted="getBooks" @bookEdited="getBooks" class="card mb-4" :book="book"></bookCard>
+                    <BookCard class="card mb-4" :book="book" :books="books"></BookCard>
                 </div>
             </div>
         </v-content>
@@ -19,11 +19,11 @@
 </template>
 
 <script>
-import Nav from './Nav'
+import Navbar from './Navbar'
 import BookCard from './BookCard'
-import MenuList from './MenuList'
+import Sidebar from './Sidebar'
 import api from "../helpers/api";
-import AddBook from "./AddBook"
+import AddBook from "./AddBookBtnMobile"
 
 import {
     debounce
@@ -38,10 +38,10 @@ export default {
         };
     },
     components: {
-        "navbar": Nav,
-        "bookCard": BookCard,
-        "menuList": MenuList,
-        "addBook": AddBook
+        Navbar,
+        BookCard,
+        Sidebar,
+        AddBook
     },
     methods: {
         async searchBook() {
@@ -54,11 +54,9 @@ export default {
                         Authorization: `Bearer ${this.$cookies.get('token')}`
                     }
                 });
-                console.log(response.data.data.rows, 'search');
                 this.books = response.data.data.rows;
             } catch (error) {
                 this.error = error.response.data;
-                console.log(error.response.data);
             }
         },
         async getBooks() {
@@ -68,11 +66,9 @@ export default {
                         Authorization: `Bearer ${this.$cookies.get('token')}`
                     }
                 });
-                console.log(response.data.data, 'reeeeeespone');
                 this.books = response.data.data;
             } catch (error) {
                 this.error = error.response.data;
-                console.log(error.response.data, 'errorrr');
             }
         },
         async getUserData() {
@@ -82,11 +78,9 @@ export default {
                         Authorization: `Bearer ${this.$cookies.get('token')}`
                     }
                 });
-                console.log(response.data.data, 'userrr');
                 this.user = response.data.data;
             } catch (error) {
                 this.error = error.response.data;
-                console.log(error.response.data, 'errorrr');
             }
         },
         async protectRoute() {

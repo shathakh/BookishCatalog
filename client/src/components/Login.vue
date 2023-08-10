@@ -64,13 +64,11 @@ export default {
                         email: this.email,
                         password: this.password
                     });
-                    console.log(response.data.data.token);
                     this.$cookies.set('token', response.data.data.token);
                     this.$router.push("/dashboard");
 
                 } catch (error) {
                     this.error = error.response.data.message;
-                    console.log(error.response.data);
                 }
             }
         },
@@ -98,6 +96,7 @@ form {
     margin-top: 150px;
     width: 50%
 }
+
 .welcome {
     display: flex;
     flex-direction: column;
