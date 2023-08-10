@@ -9,8 +9,11 @@
                 <AddBook :books="books" class="add-book-btn"></AddBook> <!-- visible in mobile size -->
             </div>
             <div class="cards-container">
-                <div class="cards" v-for="book in books" :key="book.title">
+                <div v-if="books.length > 0" class="cards" v-for="book in books" :key="book.title">
                     <BookCard class="card mb-4" :book="book" :books="books"></BookCard>
+                </div>
+                <div class="no-books-message mt-5" v-if="books.length == 0">
+                    <div class="display-1 grey--text text--darken-1">There are no books!</div>
                 </div>
             </div>
         </v-content>
@@ -136,6 +139,10 @@ export default {
 
 .add-book-btn {
     visibility: hidden;
+}
+
+.no-books-message {
+    width: 100%
 }
 
 @media (max-width: 900px) {

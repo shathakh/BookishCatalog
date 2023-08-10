@@ -161,6 +161,11 @@ export default {
     flex-direction: column;
 }
 
+.list>div:first-child {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
 .list-item {
     padding: 15px;
     display: flex;
