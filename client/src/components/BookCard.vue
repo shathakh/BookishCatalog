@@ -18,15 +18,20 @@
                     <v-card-text>
                         <v-container>
                             <v-text-field label="Title" v-model="title"></v-text-field>
+                            <div v-if="!$v.title.required && $v.title.$dirty" class="red--text text--accent-4">The title field cann't be empty.</div>
                             <v-text-field label="Author" v-model="author"></v-text-field>
+                            <div v-if="!$v.author.required && $v.author.$dirty" class="red--text text--accent-4">The author field is required.</div>
                             <v-text-field label="Description" v-model="description"></v-text-field>
+                            <div v-if="!$v.description.required && $v.description.$dirty" class="red--text text--accent-4">The description field is required.</div>
                             <v-text-field label="Image Link" v-model="imageLink"></v-text-field>
+                            <div v-if="!$v.imageLink.required && $v.imageLink.$dirty" class="red--text text--accent-4">The image link field is required.</div>
+
                         </v-container>
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
 
-                        <v-btn class="mb-4"" color=" grey darken-1 white--text" @click="dialog = false">
+                        <v-btn class="mb-4"" color=" grey darken-1 white--text" @click="resetForm">
                             Close
                         </v-btn>
                         <v-btn class="ml-3 mr-4 mb-4" color="indigo white--text" @click="editBook(book.id)">
@@ -64,6 +69,9 @@
 <script>
 import api from "../helpers/api";
 import DeleteBookModal from "./ConfirmDeleteModal"
+import {
+    required,
+} from 'vuelidate/lib/validators'
 
 export default {
     props: {
@@ -92,24 +100,24 @@ export default {
         this.description = this.book.description;
         this.imageLink = this.book.imageLink;
     },
-    methods: {
-        async deleteBook(bookId) {
-            try {
-                const response = await api.delete(`/book/${bookId}`, {
-                    headers: {
-                        Authorization: `Bearer ${this.$cookies.get('token')}`
-                    }
-                });
-                const bookIndex = this.books.findIndex(book => book.id === bookId);
-                if (bookIndex !== -1) {
-                    this.books.splice(bookIndex, 1); // Remove 1 element at the bookIndex
-                }
-                this.dialogDelete = false
-            } catch (error) {
-                this.error = error.response.data;
-            }
+    validations: {
+        title: {
+            required,
         },
+        author: {
+            required,
+        },
+        description: {
+            required,
+        },
+        imageLink: {
+            required,
+        },
+    },
+    methods: {
         async editBook(bookId) {
+            this.$v.$touch();
+            if (this.$v.$pendding || this.$v.$error) return;
             try {
                 const response = await api.put(`/book/${bookId}`, {
                     title: this.title,
@@ -135,8 +143,17 @@ export default {
             } catch (error) {
                 this.error = error.response.data;
             }
-        }
-    }
+        },
+        resetForm() {
+            this.dialog = false
+            this.$v.$reset();
+            this.title = this.book.title;
+            this.author = this.book.author;
+            this.description = this.book.description;
+            this.imageLink = this.book.imageLink;
+            this.error = "";
+        },
+    },
 }
 </script>
 
