@@ -10,7 +10,6 @@ const ExpressWrapper = (fn) => async (req, res, next) => {
     } else if (error instanceof CustomError) {
       res.status(error.status).json({ message: error.message });
     } else {
-      console.log(error, "server error");
       res.status(500).json({ message: "Server Error" });
     }
   }

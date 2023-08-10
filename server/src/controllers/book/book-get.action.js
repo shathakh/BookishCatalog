@@ -5,7 +5,6 @@ const { Op } = require("sequelize");
 
 const getBooks = async (req) => {
   const { id } = req.params;
-  console.log(req.params.id == req.user.id ,'check')
   await queryBookValidation.validate(req.params);
   const checkUser = req.params.id == req.user.id
   if(!checkUser) throw serverErrs.UNAUTHORIZED("unauthorized");
@@ -16,7 +15,7 @@ const getBooks = async (req) => {
     order: [['createdAt', 'DESC']],
   });
   if (books.length == 0){
-    return { status: 200, msg: "There is No Books" };
+    return { status: 200, msg: "There is No Books", data:books };
   }else 
   return { status: 200, data: books };
 };

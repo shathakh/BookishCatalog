@@ -29,7 +29,6 @@ const addBook = async (req, res) => {
 
 const deleteBook = async (req, res) => {
   const { id } = req.params;
-  console.log(id, 'iddddd');
   const userId = req.user.id;
   await queryBookValidation.validate(req.params);
   const book = await Book.findByPk(id);

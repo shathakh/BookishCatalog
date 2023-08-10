@@ -5,7 +5,6 @@ const { serverErrs } = require("../../helpers/customError");
 const generateToken = require("../../helpers/generateToken");
 
 const signup = async (req, res) => {
-  console.log(req.body, "reqqqq");
   const { firstName, lastName, email, password } = req.body;
   await signupValidation.validate({ firstName, lastName, email, password });
 
@@ -15,7 +14,6 @@ const signup = async (req, res) => {
 
   if (user) throw serverErrs.BAD_REQUEST("email is already used");
   const hashedPassword = await hash(password, 12);
-console.log(hashedPassword, 'passwordddd')
   const newUser = await User.create(
     {
       firstName,
@@ -59,7 +57,6 @@ const login = async (req, res) => {
   };
   const token = await generateToken(userData);
   res.cookie("token", token);
-  console.log(token, 'tokennnn');
   userData.token =token;
   return { status: 200, msg: "logged in successfully", data: userData };
 };
