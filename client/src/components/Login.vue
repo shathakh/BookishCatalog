@@ -6,7 +6,7 @@
     </div>
     <form @submit.prevent="submitForm" class="pt-5">
         <div class="form-group mb-5">
-            <v-text-field label="Email" hide-details="auto" v-model="email"></v-text-field>
+            <v-text-field label="Email" v-model="email"></v-text-field>
             <div v-if="!$v.email.required && $v.email.$dirty" class="red--text text--accent-4">The email field is required.</div>
             <div v-if="!$v.email.email && $v.email.$dirty" class="red--text text--accent-4">The email is not valid.</div>
         </div>

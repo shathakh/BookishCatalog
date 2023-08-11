@@ -6,15 +6,15 @@
     </div>
     <form @submit.prevent="submitForm" class="pt-5">
         <div class="form-group mb-4">
-            <v-text-field label="First Name" hide-details="auto" v-model="firstName" type="text"></v-text-field>
+            <v-text-field label="First Name" v-model="firstName" type="text"></v-text-field>
             <div v-if="!$v.firstName.required && $v.firstName.$dirty" class="red--text text--accent-4">The first name field is required.</div>
         </div>
         <div class="form-group mb-4">
-            <v-text-field label="Last Name" hide-details="auto" v-model="lastName" type="text"></v-text-field>
+            <v-text-field label="Last Name" v-model="lastName" type="text"></v-text-field>
             <div v-if="!$v.lastName.required && $v.lastName.$dirty" class="red--text text--accent-4">The last name field is required.</div>
         </div>
         <div class="form-group mb-4">
-            <v-text-field label="Email" hide-details="auto" v-model="email"></v-text-field>
+            <v-text-field label="Email" v-model="email"></v-text-field>
             <div v-if="!$v.email.required && $v.email.$dirty" class="red--text text--accent-4">The email field is required.</div>
             <div v-if="!$v.email.email && $v.email.$dirty" class="red--text text--accent-4">The email is not valid.</div>
         </div>

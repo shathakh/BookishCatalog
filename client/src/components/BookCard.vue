@@ -4,7 +4,7 @@
     <div class="mt-1 d-flex justify-center">
         <v-card-title class="title">
             {{book.title}} </v-card-title>
-        <v-row justify="center">
+        <div justify="center">
             <v-dialog v-model="dialog" persistent max-width="600px">
                 <template v-slot:activator="{ on, attrs }">
                     <div class="ml-5" color="primary" dark v-bind="attrs" v-on="on">
@@ -28,6 +28,7 @@
 
                         </v-container>
                     </v-card-text>
+                    <div class="red--text text--accent-4 title">{{error}}</div>
                     <v-card-actions>
                         <v-spacer></v-spacer>
 
@@ -40,8 +41,8 @@
                     </v-card-actions>
                 </v-card>
             </v-dialog>
-        </v-row>
-        <DeleteBookModal :bookId="book.id" :books="books" :dialogDelete="dialogDelete"></DeleteBookModal>
+        </div>
+        <DeleteBookModal :bookId="book.id" :books="books" :error="error" :dialogDelete="dialogDelete"></DeleteBookModal>
 
     </div>
     <v-card-actions>
@@ -141,7 +142,7 @@ export default {
                 }
                 this.dialog = false
             } catch (error) {
-                this.error = error.response.data;
+                this.error = error.response.data.message;
             }
         },
         resetForm() {

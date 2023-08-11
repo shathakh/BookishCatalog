@@ -12,7 +12,7 @@
                 My Books
             </div>
         </div>
-        <v-row justify="center">
+        <div justify="center">
             <v-dialog v-model="dialog" persistent max-width="600px">
                 <template v-slot:activator="{ on, attrs }">
                     <div color="primary" dark v-bind="attrs" v-on="on">
@@ -43,6 +43,8 @@
 
                         </v-container>
                     </v-card-text>
+                    <div class="red--text text--accent-4 title">{{error}}</div>
+
                     <v-card-actions>
                         <v-spacer></v-spacer>
 
@@ -55,7 +57,7 @@
                     </v-card-actions>
                 </v-card>
             </v-dialog>
-        </v-row>
+        </div>
 
         <div class="list-item" @click="signOut">
             <div class="list-icon">
@@ -127,7 +129,7 @@ export default {
                 this.dialog = false
                 this.books.unshift(newBook);
             } catch (error) {
-                this.error = error.response.data;
+                this.error = error.response.data.message;
             }
         },
         resetForm() {

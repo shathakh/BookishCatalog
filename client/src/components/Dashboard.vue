@@ -8,6 +8,7 @@
                 <v-text-field v-model="searchText" label="Search Book" class="search-btn" @input="handleSearch"></v-text-field>
                 <AddBook :books="books" class="add-book-btn"></AddBook> <!-- visible in mobile size -->
             </div>
+            <div class="red--text text--accent-4 title">{{error}}</div>
             <div class="cards-container">
                 <div v-if="books.length > 0" class="cards" v-for="book in books" :key="book.title">
                     <BookCard class="card mb-4" :book="book" :books="books"></BookCard>
@@ -37,7 +38,8 @@ export default {
         return {
             searchText: "",
             books: [],
-            user: {}
+            user: {},
+            error: ""
         };
     },
     components: {
@@ -59,7 +61,7 @@ export default {
                 });
                 this.books = response.data.data.rows;
             } catch (error) {
-                this.error = error.response.data;
+                this.error = error.response.data.message;
             }
         },
         async getBooks() {
@@ -71,7 +73,7 @@ export default {
                 });
                 this.books = response.data.data;
             } catch (error) {
-                this.error = error.response.data;
+                this.error = error.response.data.message;
             }
         },
         async getUserData() {
@@ -83,7 +85,7 @@ export default {
                 });
                 this.user = response.data.data;
             } catch (error) {
-                this.error = error.response.data;
+                this.error = error.response.data.message;
             }
         },
         async protectRoute() {

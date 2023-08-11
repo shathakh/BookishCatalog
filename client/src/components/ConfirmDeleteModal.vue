@@ -1,5 +1,5 @@
 <template>
-<v-row justify="center">
+<div justify="center">
     <v-icon class="delete-icon indigo--text mt-3 mr-2 ml-2" @click.stop="dialogDelete = true">mdi-delete</v-icon>
     <v-dialog v-model="dialogDelete" max-width="350">
         <v-card>
@@ -11,6 +11,7 @@
                 Do you really want to delete this book.
                 This book can not be restore.
             </v-card-text>
+            <div class="red--text text--accent-4 title">{{error}}</div>
 
             <v-card-actions>
                 <v-spacer></v-spacer>
@@ -25,7 +26,7 @@
             </v-card-actions>
         </v-card>
     </v-dialog>
-</v-row>
+</div>
 </template>
 
 <script>
@@ -35,7 +36,8 @@ export default {
     props: {
         bookId: Number,
         books: [],
-        dialogDelete: Boolean
+        dialogDelete: Boolean,
+        error: ""
     },
     methods: {
         async deleteBook() {
@@ -51,7 +53,7 @@ export default {
                 }
                 this.dialogDelete = false
             } catch (error) {
-                this.error = error.response.data;
+                this.error = error.response.data.message;
             }
         },
     }
