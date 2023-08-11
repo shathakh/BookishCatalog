@@ -72,16 +72,7 @@ export default {
                 }
             }
         },
-        async protectRoute() {
-            if (this.$cookies.get('token')) {
-                this.$router.push("/dashboard");
-
-            }
-        }
     },
-    mounted() {
-        this.protectRoute();
-    }
 };
 </script>
 

@@ -8,7 +8,7 @@
                 <v-text-field v-model="searchText" label="Search Book" class="search-btn" @input="handleSearch"></v-text-field>
                 <AddBook :books="books" class="add-book-btn"></AddBook> <!-- visible in mobile size -->
             </div>
-            <div class="red--text text--accent-4 title">{{error}}</div>
+            <div class="red--text text--accent-4 mb-5 title">{{error}}</div>
             <div class="cards-container">
                 <div v-if="books.length > 0" class="cards" v-for="book in books" :key="book.title">
                     <BookCard class="card mb-4" :book="book" :books="books"></BookCard>
@@ -62,6 +62,7 @@ export default {
                 this.books = response.data.data.rows;
             } catch (error) {
                 this.error = error.response.data.message;
+                console.log(this.error, 'this.error')
             }
         },
         async getBooks() {
@@ -88,12 +89,6 @@ export default {
                 this.error = error.response.data.message;
             }
         },
-        async protectRoute() {
-            if (!this.$cookies.get('token')) {
-                this.$router.push("/login");
-
-            }
-        },
         handleSearch: debounce(function () {
             this.searchBook();
         }, 250),
@@ -103,7 +98,6 @@ export default {
         },
     },
     mounted() {
-        this.protectRoute();
         this.loadData();
 
     }

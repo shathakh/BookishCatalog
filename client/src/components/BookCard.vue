@@ -136,7 +136,6 @@ export default {
                     this.books[bookIndex].author = this.author;
                     this.books[bookIndex].description = this.description;
                     this.books[bookIndex].imageLink = this.imageLink;
-                    console.log(this.books, 'books after edit')
                 } else {
                     console.log("Book not found");
                 }
