@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=production node ./dist/index.js",
-    "test": "cross-env NODE_ENV=test jest -- index.test.ts",
+    "test": "cross-env NODE_ENV=test jest tests/index.test.js",
     "dev": "cross-env NODE_ENV=development nodemon src/index.js",
     "db:seed": "cross-env SEED=true NODE_ENV=development node src/db/config/build.js"
   },
@@ -29,6 +29,8 @@
     "yup": "^1.2.0"
   },
   "devDependencies": {
-    "nodemon": "^3.0.1"
+    "jest": "^29.6.2",
+    "nodemon": "^3.0.1",
+    "supertest": "^6.3.3"
   }
 }
