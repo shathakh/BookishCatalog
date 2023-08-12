@@ -14,7 +14,6 @@ class CustomError extends Error {
 const serverErrs = {
   BAD_REQUEST: (msg) => new CustomError(StatusCodes.BAD_REQUEST, msg),
   UNAUTHORIZED: (msg) => new CustomError(StatusCodes.UNAUTHORIZED, msg),
-  FORBIDDEN: (msg) => new CustomError(StatusCodes.FORBIDDEN, msg),
 };
 
 module.exports = { CustomError, serverErrs };

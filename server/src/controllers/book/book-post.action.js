@@ -27,7 +27,7 @@ const addBook = async (req, res) => {
   return { status: 201, data: book };
 };
 
-const deleteBook = async (req, res) => {
+const deleteBook = async (req) => {
   const { id } = req.params;
   const userId = req.user.id;
   await queryBookValidation.validate(req.params);
@@ -69,7 +69,7 @@ const editBookInfo = async (req, res) => {
       returning: true,
     }
   );
-  return { status: 200, data: updatedBook, msg: "updated" };
+  return { status: 200, data: updatedBook, msg: "book has been updated" };
 };
 
 module.exports = { addBook, deleteBook, editBookInfo };
