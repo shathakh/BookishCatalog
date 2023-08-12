@@ -12,7 +12,7 @@ const isAuthenticated = async () => {
     const user = response.data.data;
     return user;
   } catch (error) {
-    console.log(error, "error");
+    console.log(error.response.data.message);
   }
 };
 

@@ -8,7 +8,7 @@
                 <v-text-field v-model="searchText" label="Search Book" class="search-btn" @input="handleSearch"></v-text-field>
                 <AddBook :books="books" class="add-book-btn"></AddBook> <!-- visible in mobile size -->
             </div>
-            <div v-if="error == true" class="red--text text--accent-4 mb-5 title">{{error}}</div>
+            <div v-if="error" class="red--text text--accent-4 mb-5 title">{{error}}</div>
             <div v-if="loading == true" class="mb-5 title">Loading .... </div>
 
             <div class="cards-container">
@@ -28,8 +28,9 @@
 import Navbar from './Navbar'
 import BookCard from './BookCard'
 import Sidebar from './Sidebar'
-import api from "../../helpers/api";
+import api from "../../helpers/api"
 import AddBook from "./AddBookBtnMobile"
+import isAuthenticated from "../../helpers/isAuthenticated"
 
 import {
     debounce
@@ -65,7 +66,6 @@ export default {
                 this.books = response.data.data.rows;
             } catch (error) {
                 this.error = error.response.data.message;
-                console.log(this.error, 'this.error')
             }
         },
         async getBooks() {
@@ -83,16 +83,8 @@ export default {
             }
         },
         async getUserData() {
-            try {
-                const response = await api.get("/auth/user", {
-                    headers: {
-                        Authorization: `Bearer ${this.$cookies.get('token')}`
-                    }
-                });
-                this.user = response.data.data;
-            } catch (error) {
-                this.error = error.response.data.message;
-            }
+            let user = await isAuthenticated();
+            this.user = user;
         },
         handleSearch: debounce(function () {
             this.searchBook();

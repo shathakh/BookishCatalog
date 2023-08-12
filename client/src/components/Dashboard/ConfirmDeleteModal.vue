@@ -33,10 +33,14 @@
 import api from "../../helpers/api";
 
 export default {
+    data() {
+        return {
+            dialogDelete: false,
+        };
+    },
     props: {
         bookId: Number,
         books: [],
-        dialogDelete: Boolean,
         error: ""
     },
     methods: {

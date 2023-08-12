@@ -3,7 +3,7 @@ import Router from "vue-router";
 import Login from "../components/Login.vue";
 import Signup from "@/components/Signup";
 import Dashboard from "../components/Dashboard/index.vue";
-import isAuthenticated from "./isAuthenticated";
+import isAuthenticated from "../helpers/isAuthenticated";
 import NotFoundView from "../components/NotFoundView.vue";
 
 Vue.use(Router);
@@ -59,7 +59,6 @@ router.beforeEach(async (to, from, next) => {
         next("/login");
       }
     } catch (error) {
-      console.log(error, "error");
       next("/login");
     }
   }

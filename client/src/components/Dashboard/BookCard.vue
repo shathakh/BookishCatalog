@@ -1,6 +1,6 @@
 <template>
 <v-card class="" max-width="344">
-    <v-img :src="book.imageLink" height="300px"></v-img>
+    <v-img v-if="imageLink" :src="book.imageLink" height="300px"></v-img>
     <div class="mt-1 d-flex justify-center">
         <v-card-title class="title">
             {{book.title}} </v-card-title>
@@ -42,7 +42,7 @@
                 </v-card>
             </v-dialog>
         </div>
-        <DeleteBookModal :bookId="book.id" :books="books" :error="error" :dialogDelete="dialogDelete"></DeleteBookModal>
+        <DeleteBookModal :bookId="book.id" :books="books" :error="error"></DeleteBookModal>
 
     </div>
     <v-card-actions>
@@ -87,7 +87,6 @@ export default {
             imageLink: "",
             error: "",
             dialog: false,
-            dialogDelete: false,
             show: false,
 
         };

@@ -3,7 +3,7 @@
     <h2>Bookish Catalog</h2>
     <div class="nav-right">
         <v-icon class="white--text mr-1">mdi-account</v-icon>
-        <p class=" pt-3 ">{{user.firstName}}{{user.lastName}}</p>
+        <p class=" pt-3 ">{{user.firstName}} {{user.lastName}}</p>
         <v-btn color="blue darken-4 white--text" @click="signOut" class="ml-3">
             Sign Out
         </v-btn>
