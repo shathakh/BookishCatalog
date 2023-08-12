@@ -20,11 +20,11 @@
                             <v-text-field label="Title" v-model="title"></v-text-field>
                             <div v-if="!$v.title.required && $v.title.$dirty" class="red--text text--accent-4">The title field cann't be empty.</div>
                             <v-text-field label="Author" v-model="author"></v-text-field>
-                            <div v-if="!$v.author.required && $v.author.$dirty" class="red--text text--accent-4">The author field is required.</div>
+                            <div v-if="!$v.author.required && $v.author.$dirty" class="red--text text--accent-4">The author field cann't be empty.</div>
                             <v-text-field label="Description" v-model="description"></v-text-field>
-                            <div v-if="!$v.description.required && $v.description.$dirty" class="red--text text--accent-4">The description field is required.</div>
+                            <div v-if="!$v.description.required && $v.description.$dirty" class="red--text text--accent-4">The description field cann't be empty.</div>
                             <v-text-field label="Image Link" v-model="imageLink"></v-text-field>
-                            <div v-if="!$v.imageLink.required && $v.imageLink.$dirty" class="red--text text--accent-4">The image link field is required.</div>
+                            <div v-if="!$v.imageLink.required && $v.imageLink.$dirty" class="red--text text--accent-4">The image link field cann't be empty.</div>
 
                         </v-container>
                     </v-card-text>
