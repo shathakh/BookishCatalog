@@ -1,7 +1,7 @@
-const { DataTypes }= require('sequelize');
-const sequelize = require('../db/config/connection');
+const { DataTypes } = require("sequelize");
+const sequelize = require("../db/config/connection");
 
-const Book = sequelize.define('book', {
+const Book = sequelize.define("book", {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -22,7 +22,7 @@ const Book = sequelize.define('book', {
   imageLink: {
     type: DataTypes.STRING,
     allowNull: false,
-  }
+  },
 });
 
-module.exports =Book;
+module.exports = Book;

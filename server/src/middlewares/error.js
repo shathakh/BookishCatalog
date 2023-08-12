@@ -1,14 +1,13 @@
-
 const clientError = (req, res) => {
-  res.status(404).json({ message: 'Not Found' });
+  res.status(404).json({ message: "Not Found" });
 };
 
 const serverError = (error, req, res, next) => {
   if (error.status) {
     res.status(error.status).json({ message: error.message });
   } else {
-    res.status(500).json({ message: 'Server Error' });
+    res.status(500).json({ message: "Server Error" });
   }
 };
 
-module.exports= { clientError, serverError };
+module.exports = { clientError, serverError };

@@ -4,4 +4,4 @@ const Book = require("./Book");
 User.hasMany(Book);
 Book.belongsTo(User);
 
-module.exports = {User, Book}
+module.exports = { User, Book };

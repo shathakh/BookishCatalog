@@ -8,7 +8,9 @@
                 <v-text-field v-model="searchText" label="Search Book" class="search-btn" @input="handleSearch"></v-text-field>
                 <AddBook :books="books" class="add-book-btn"></AddBook> <!-- visible in mobile size -->
             </div>
-            <div class="red--text text--accent-4 mb-5 title">{{error}}</div>
+            <div v-if="error == true" class="red--text text--accent-4 mb-5 title">{{error}}</div>
+            <div v-if="loading == true" class="mb-5 title">Loading .... </div>
+
             <div class="cards-container">
                 <div v-if="books.length > 0" class="cards" v-for="book in books" :key="book.title">
                     <BookCard class="card mb-4" :book="book" :books="books"></BookCard>
@@ -26,7 +28,7 @@
 import Navbar from './Navbar'
 import BookCard from './BookCard'
 import Sidebar from './Sidebar'
-import api from "../helpers/api";
+import api from "../../helpers/api";
 import AddBook from "./AddBookBtnMobile"
 
 import {
@@ -39,7 +41,8 @@ export default {
             searchText: "",
             books: [],
             user: {},
-            error: ""
+            error: "",
+            loading: false
         };
     },
     components: {
@@ -67,12 +70,14 @@ export default {
         },
         async getBooks() {
             try {
+                this.loading = true
                 const response = await api.get(`/book/${this.user.id}`, {
                     headers: {
                         Authorization: `Bearer ${this.$cookies.get('token')}`
                     }
                 });
                 this.books = response.data.data;
+                this.loading = false
             } catch (error) {
                 this.error = error.response.data.message;
             }

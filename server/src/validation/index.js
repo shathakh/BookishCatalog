@@ -41,5 +41,5 @@ module.exports = {
   queryBookValidation,
   addBookValidation,
   searchBookValidation,
-  editBookValidation
+  editBookValidation,
 };

@@ -1,6 +1,6 @@
-const {users, books} = require("./fakeData");
+const { users, books } = require("./fakeData");
 const sequelize = require("./connection");
-const {User, Book} = require("../../models")
+const { User, Book } = require("../../models");
 User.hasMany(Book);
 Book.belongsTo(User);
 const insertDB = async () => {
@@ -13,4 +13,4 @@ if (process.env.SEED) {
   insertDB();
 }
 
-module.exports= insertDB;
+module.exports = insertDB;

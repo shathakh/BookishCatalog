@@ -37,7 +37,7 @@ const deleteBook = async (req, res) => {
   }
   if (userId === book.userId) {
     await book.destroy();
-    return { status: 200, msg: "book deleted", data:book };
+    return { status: 200, msg: "book deleted", data: book };
   }
   throw serverErrs.UNAUTHORIZED("you are not authorized");
 };

@@ -2,7 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import Login from "../components/Login.vue";
 import Signup from "@/components/Signup";
-import Dashboard from "@/components/Dashboard";
+import Dashboard from "../components/Dashboard/index.vue";
 import isAuthenticated from "./isAuthenticated";
 import NotFoundView from "../components/NotFoundView.vue";
 
