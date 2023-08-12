@@ -6,9 +6,10 @@ A full-stack web application for managing a personal book collection. The applic
 
 
 ## Database Schema
-- [Database](https://drawsql.app/teams/shatha-1/diagrams/book-collection)
+- [Database]([https://drawsql.app/teams/shatha-1/diagrams/book-collection](https://drawsql.app/teams/shatha-1/diagrams/book-collection))
+![schema](https://github.com/shathakh/BookishCatalog/assets/77805478/6997d5cb-b972-46f6-ae02-4cb22257bd7b)
 
-![](https://hackmd.io/_uploads/BJ6EnHQhh.png)
+
 
 
 ## Installation
@@ -22,7 +23,7 @@ A full-stack web application for managing a personal book collection. The applic
    ```sh
    npm install
    ```
-3. In the project root folder, rename `.env.example` file to `.env` and fill in the environment variables
+3. In the server folder, rename `.env.example` file to `.env` and fill in the environment variables
    ```sh
    JWT_SECRET='<your secret key>'
    DEV_DATABASE_URL=postgres://<username>:<password>@localhost:<port || 5432>/<development database>
